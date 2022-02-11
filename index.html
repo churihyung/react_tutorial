@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    let count = 0;
+    function test() {
+      console.log("fsdfds");
+    }
+
+    const root = document.getElementById("root");
+    const Title = () => (
+      <h2 id="boom" style={{ color: "tomato" }} onClick={test}>
+        I am a span
+      </h2>
+    );
+    //arrow function () 감싸면 그자체를 return하겠다는 의미 {}로감싸면 return 쪽에 작성해줘야 한다.
+    const Button = () => (
+      <button
+        onClick={() => {
+          return (count = count + 1);
+        }}
+      >
+        click me!
+      </button>
+    );
+
+    const Element = () => (
+      <span id="test" onMouseOver={() => console.log("test")}>
+        boom!
+      </span>
+    );
+    // const span = React.createElement("h2", { id: "boom" }, "I am a span");
+    // const btn = React.createElement("button", {onClick:()=>count = count+1}, "click me!");
+    const Container = () => (
+      <div>
+        <Title /> <Button /> <element />
+      </div>
+    );
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>
