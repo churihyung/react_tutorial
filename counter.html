@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    // const span = React.createElement("h2", { id: "boom" }, "I am a span");
+    // const btn = React.createElement("button", {onClick:()=>count = count+1}, "click me!");
+    //arrow function () 감싸면 그자체를 return하겠다는 의미, {}로감싸면 return 쪽에 작성해줘야 한다.
+    const Container = () => {
+      const [counter, setCounter] = React.useState(0);
+      //setCounter의 첫번째 매개변수는 current값을 의미한다. counter값이 다른 곳에서 변경될 수도 있으니까
+      //안전하게 함수형태로 리턴 (counter의 현재값 + 1)
+      const upCount = () => setCounter((cur) => cur + 1);
+      return (
+        <div>
+          <h2 id="boom" style={{ color: "tomato" }}>
+            total count is {counter}
+          </h2>
+          <button onClick={upCount}>click me!</button>
+        </div>
+      );
+    };
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>

@@ -7,31 +7,32 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    let count = 10;
-    function render() {
-      ReactDOM.render(<Container />, root);
-    }
-
     const root = document.getElementById("root");
 
-    // const span = React.createElement("h2", { id: "boom" }, "I am a span");
-    // const btn = React.createElement("button", {onClick:()=>count = count+1}, "click me!");
-    //arrow function () 감싸면 그자체를, return하겠다는 의미 {}로감싸면 return 쪽에 작성해줘야 한다.
-    const Container = () => (
-      <div>
-        <h2 id="boom" style={{ color: "tomato" }}>
-          total count is {count}
-        </h2>
-        <button
-          onClick={() => {
-            count = count + 1;
-            render();
-          }}
-        >
-          click me!
-        </button>
-      </div>
-    );
-    render();
+    const App = () => {
+      let [minutes, setMinutes] = React.useState();
+      const onChange = (event) => {
+        setMinutes(event.target.value);
+      };
+      return (
+        <div>
+          <h1 id="boom" style={{ color: "tomato" }}>
+            Super converter
+          </h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            id="minutes"
+            type="number"
+            placeholder="Minutes"
+            onChange={onChange}
+            value={minutes}
+          />
+          <label htmlFor="hours">Hours</label>
+          <input id="hours" type="number" placeholder="Hours" />
+          <h2>바꾸고 싶은 "분" = {minutes}</h2>
+        </div>
+      );
+    };
+    ReactDOM.render(<App />, root);
   </script>
 </html>
