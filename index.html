@@ -3,21 +3,27 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <!-- <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script> -->
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    const Btn = ({ name }) => {
+    const Btn = ({ name, changeValue, fontSize = 12 }) => {
+      // fontsize 값 없을 경우 초기화 값 줄 수 있음.
       // props.name = {name}    키워드 : 구조분해 할당!!! 왕중요
+      console.log(`${name} was rendered`);
       return (
         <button
+          onClick={changeValue}
           style={{
             backgroundColor: "teal",
             borderRadius: "5px",
             border: "0px",
             margin: "5px 5px",
             padding: "5px 5px",
+            fontSize,
           }}
         >
           {name}
@@ -25,11 +31,28 @@
       );
     };
 
+    //btn props Type
+    Btn.propTypes = {
+      name: PropTypes.string,
+      fontSize: PropTypes.number,
+    };
+
+    //memo props가 바뀌지 않으면 re-render 하지 않음.
+    const MemorizedBtn = React.memo(Btn);
+
+    //부모state가 변하면 자식컴포넌트는 다시 그려짐.
     const App = () => {
+      const [value, setValue] = React.useState("SAVE");
       return (
         <div>
-          <Btn name="SAVE" />
+          <Btn
+            name={value}
+            changeValue={() => setValue((cur) => (cur = "REVERT"))}
+            fontSize={20}
+          />
           <Btn name="CONFIRM" />
+
+          <MemorizedBtn name="NEW_CONFIRM" />
         </div>
       );
     };
